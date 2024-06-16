@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 
 const SideNav: React.FC<{}> = () => {
-
+    const location = useLocation();
 
     return (
         <aside className="aside is-placed-left is-expanded">
@@ -14,39 +14,33 @@ const SideNav: React.FC<{}> = () => {
             <div className="menu is-menu-main">
                 <p className="menu-label">General</p>
                 <ul className="menu-list">
-                    <li className="--set-active-index-html">
-                        <a href="index.html">
+                    <li className={location.pathname === "/" ? "active" : ""}>
+                        <Link to="/">
                             <span className="icon"><i className="mdi mdi-desktop-mac"></i></span>
                             <span className="menu-item-label">Dashboard</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
-                <p className="menu-label">Examples</p>
+                <p className="menu-label">Taches</p>
                 <ul className="menu-list">
-                    <li className="--set-active-tables-html">
-                        <a href="tables.html">
+                    <li className={location.pathname === "/bus-list" ? "active" : ""}>
+                        <Link to="/bus-list">
                             <span className="icon"><i className="mdi mdi-table"></i></span>
-                            <span className="menu-item-label">Tables</span>
-                        </a>
+                            <span className="menu-item-label">Bus List</span>
+                        </Link>
                     </li>
-                    <li className="active">
-                        <a href="forms.html">
+                    <li className={location.pathname === "/user-list" ? "active" : ""}>
+                        <Link to="/user-list">
                             <span className="icon"><i className="mdi mdi-square-edit-outline"></i></span>
-                            <span className="menu-item-label">Forms</span>
-                        </a>
+                            <span className="menu-item-label">Users</span>
+                        </Link>
                     </li>
-                    <li className="--set-active-profile-html">
-                        <a href="profile.html">
+                    {/* <li className="--set-active-profile-html">
+                        <a href="!#">
                             <span className="icon"><i className="mdi mdi-account-circle"></i></span>
                             <span className="menu-item-label">Profile</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="login.html">
-                            <span className="icon"><i className="mdi mdi-lock"></i></span>
-                            <span className="menu-item-label">Login</span>
-                        </a>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </aside>

@@ -5,6 +5,8 @@ import { firebaseConfig } from "../../../configs/firebase";
 import TopNav from "../../../components/top-nav";
 import SideNav from "../../../components/side-nav";
 import { Route, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBus, faEdit, faList, faTrash } from '@fortawesome/free-solid-svg-icons'; 
 
 
 const BusList: React.FC<{}> = () => {
@@ -37,19 +39,19 @@ const BusList: React.FC<{}> = () => {
                     aria-placeholder="Select region"
                     onChange={(event) => {
                         setRegion(Number(event.target.value));
-                        getCities(Number(event.target.value));    
+                        getCities(Number(event.target.value));
                   }} >
                         <option value={0} >Bizerte</option>
-                        <option value={1}>Tunsie</option>
+                        <option value={1}>Sfax</option>
                         <option value={2}>Sousse</option>
-                        <option value={3}>Sfax</option>
+                        <option value={3}>Tunis</option>
                   </select>
                 </div>
                 <div className="card has-table">
                     <header className="card-header">
                         <p className="card-header-title">
-                            <span className="icon"><i className="mdi mdi-account-multiple"></i></span>
-                            Clients
+                        <span className="icon"><FontAwesomeIcon icon={faBus} /></span> 
+                        &nbsp;&nbsp;Routes
                         </p>
                         <a href="#" className="card-header-icon">
                             <span className="icon"><i className="mdi mdi-reload"></i></span>
@@ -59,59 +61,22 @@ const BusList: React.FC<{}> = () => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th className="checkbox-cell">
-                                        <label className="checkbox">
-                                            <input type="checkbox" />
-                                            <span className="check"></span>
-                                        </label>
-                                    </th>
                                     <th className="image-cell"></th>
                                     <th>Name</th>
-                                    <th>Company</th>
-                                    <th>City</th>
-                                    <th>Progress</th>
-                                    <th>Created</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {bus && bus.length !== 0 && bus.map((item, index) => (
-                                    <tr key={index} onClick={() =>{navigate('/station-list/'+item)}}>
-                                        <td className="checkbox-cell">
-                                            <label className="checkbox">
-                                                <input type="checkbox" />
-                                                <span className="check"></span>
-                                            </label>
-                                        </td>
+                                    <tr key={index} onClick={() =>{
+                                        navigate(`/stations/${region}/${item}`);}}>
                                         <td className="image-cell">
-                                            <div className="image">
-                                                <img src="https://avatars.dicebear.com/v2/initials/ryley-wuckert.svg" className="rounded-full" />
-                                            </div>
+                                            <FontAwesomeIcon icon={faList} /> 
                                         </td>
                                         <td data-label="Name">{item}</td>
-                                        <td data-label="Company">Heller-Little</td>
-                                        <td data-label="City">Emeraldtown</td>
-                                        <td data-label="Progress" className="progress-cell">
-                                            <progress max="100" value="54">54</progress>
-                                        </td>
-                                        <td data-label="Created">
-                                            <small className="text-gray-500" title="Jun 28, 2021">Jun 28, 2021</small>
-                                        </td>
-                                        <td className="actions-cell">
-                                            <div className="buttons right nowrap">
-                                                <button className="button small green --jb-modal" data-target="sample-modal-2" type="button">
-                                                    <span className="icon"><i className="mdi mdi-eye"></i></span>
-                                                </button>
-                                                <button className="button small red --jb-modal" data-target="sample-modal" type="button">
-                                                    <span className="icon"><i className="mdi mdi-trash-can"></i></span>
-                                                </button>
-                                            </div>
-                                        </td>
                                     </tr>
                                 ))
-
                                 }
-
                             </tbody>
                         </table>
                         <div className="table-pagination">

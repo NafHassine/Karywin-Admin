@@ -1,7 +1,21 @@
+import { faList, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
+import { signOut } from 'firebase/auth';
+import { auth } from "../../configs/firebase";
 
 
 const TopNav: React.FC<{}> = () => {
+    const logout = async () => {
+        try {
+            await signOut(auth);
+            console.log('User signed out successfully');
+            // Redirect to the login page or home page after logout
+            window.location.href = 'auth/signin'; // Adjust the path as necessary
+        } catch (error) {
+            console.error('Error signing out: ', error);
+        }
+    };
 
 
     return (<nav id="navbar-main" className="navbar is-fixed-top">
@@ -29,19 +43,6 @@ const TopNav: React.FC<{}> = () => {
                         </span>
                     </a>
                     <div className="navbar-dropdown">
-                        <a href="profile.html" className="navbar-item">
-                            <span className="icon"><i className="mdi mdi-account"></i></span>
-                            <span>My Profile</span>
-                        </a>
-                        <a className="navbar-item">
-                            <span className="icon"><i className="mdi mdi-settings"></i></span>
-                            <span>Settings</span>
-                        </a>
-                        <a className="navbar-item">
-                            <span className="icon"><i className="mdi mdi-email"></i></span>
-                            <span>Messages</span>
-                        </a>
-                        <hr className="navbar-divider" />
                         <a className="navbar-item">
                             <span className="icon"><i className="mdi mdi-logout"></i></span>
                             <span>Log Out</span>
@@ -51,41 +52,20 @@ const TopNav: React.FC<{}> = () => {
                 <div className="navbar-item dropdown has-divider has-user-avatar">
                     <a className="navbar-link">
                         <div className="user-avatar">
-                            <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" className="rounded-full" />
+                            <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt=" Admin" className="rounded-full" />
                         </div>
-                        <div className="is-user-name"><span>John Doe</span></div>
+                        <div className="is-user-name"><span> Admin</span></div>
                         <span className="icon"><i className="mdi mdi-chevron-down"></i></span>
                     </a>
                     <div className="navbar-dropdown">
-                        <a href="profile.html" className="navbar-item">
-                            <span className="icon"><i className="mdi mdi-account"></i></span>
-                            <span>My Profile</span>
-                        </a>
-                        <a className="navbar-item">
-                            <span className="icon"><i className="mdi mdi-settings"></i></span>
-                            <span>Settings</span>
-                        </a>
-                        <a className="navbar-item">
-                            <span className="icon"><i className="mdi mdi-email"></i></span>
-                            <span>Messages</span>
-                        </a>
-                        <hr className="navbar-divider" />
                         <a className="navbar-item">
                             <span className="icon"><i className="mdi mdi-logout"></i></span>
                             <span>Log Out</span>
                         </a>
                     </div>
                 </div>
-                <a href="https://justboil.me/tailwind-admin-templates" className="navbar-item has-divider desktop-icon-only">
-                    <span className="icon"><i className="mdi mdi-help-circle-outline"></i></span>
-                    <span>About</span>
-                </a>
-                <a href="https://github.com/justboil/admin-one-tailwind" className="navbar-item has-divider desktop-icon-only">
-                    <span className="icon"><i className="mdi mdi-github-circle"></i></span>
-                    <span>GitHub</span>
-                </a>
-                <a title="Log out" className="navbar-item desktop-icon-only">
-                    <span className="icon"><i className="mdi mdi-logout"></i></span>
+                <a title="Log out" className="navbar-item desktop-icon-only" onClick={logout}>
+                    <span className="icon"><FontAwesomeIcon icon={faSignOutAlt} /></span>
                     <span>Log out</span>
                 </a>
             </div>
